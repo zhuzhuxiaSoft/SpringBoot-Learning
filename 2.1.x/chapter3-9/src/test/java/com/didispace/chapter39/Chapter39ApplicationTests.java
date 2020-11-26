@@ -45,6 +45,7 @@ public class Chapter39ApplicationTests {
         UserSecondary userSecondary = userMapperSecondary.findByName("AAA");
         Assert.assertNull(userSecondary);
 
+
         // 往Secondary数据源插入一条数据
         userMapperSecondary.insert("BBB", 20);
 

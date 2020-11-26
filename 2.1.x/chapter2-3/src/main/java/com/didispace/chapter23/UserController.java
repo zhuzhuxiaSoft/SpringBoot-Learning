@@ -3,6 +3,7 @@ package com.didispace.chapter23;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,8 +14,28 @@ import java.util.*;
 @RequestMapping(value = "/users")     // 通过这里配置使下面的映射都在/users下
 public class UserController {
 
+    @Autowired
+    MyClassService myClassService;
+
+   @Autowired
+   MyService myService;
+
     // 创建线程安全的Map，模拟users信息的存储
     static Map<Long, User> users = Collections.synchronizedMap(new HashMap<>());
+
+    @GetMapping("/test")
+    public String test() {
+
+        MyUtil.increAge(new User());
+        MyUtil.increAge2(new User());
+
+        myClassService.increAge(new User());
+        myClassService.increAge2(new User());
+
+        myService.increAge(new User());
+        myService.increAge2(new User());
+        return "success";
+    }
 
     @GetMapping("/")
     @ApiOperation(value = "获取用户列表")
@@ -26,6 +47,7 @@ public class UserController {
     @PostMapping("/")
     @ApiOperation(value = "创建用户", notes = "根据User对象创建用户")
     public String postUser(@Valid @RequestBody User user) {
+
         users.put(user.getId(), user);
         return "success";
     }

@@ -22,6 +22,7 @@ public class Chapter54ApplicationTests {
     @Test
     public void test() throws Exception {
         System.out.println("CacheManager type : " + cacheManager.getClass());
+        // class org.springframework.data.redis.cache.RedisCacheManager
 
         // 创建1条记录
         userRepository.save(new User("AAA", 10));
